@@ -7,17 +7,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
-    BoardCanvas board;
-    MenuPanel menu; 
-    int score = 0;
+    private BoardCanvas board;
+    private MenuPanel menu; 
+    private int score = 0;
 
     public MainFrame() {
-        setSize(500, 600);
-        setLocationRelativeTo(null);
+        setSize(700, 780);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        setFocusable(true);
-        requestFocusInWindow();
         board = new BoardCanvas();
         add(board);
         menu = new MenuPanel(this);

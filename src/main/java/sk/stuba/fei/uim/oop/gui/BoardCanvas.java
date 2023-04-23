@@ -53,6 +53,11 @@ public class BoardCanvas extends Canvas {
     @Override
     public void paint(Graphics g) {
         this.tileSize = ((double) this.getWidth()) / boardData.getSize();
+        Position start = boardData.getRoute().get(0).getPosition();
+        Position finish = boardData.getRoute().get(boardData.getRoute().size()-1).getPosition();
+        g.setColor(new Color(144, 176, 255));
+        fillRect(g, start.getX()*tileSize, start.getY()*tileSize, tileSize, tileSize);
+        fillRect(g, finish.getX()*tileSize, finish.getY()*tileSize, tileSize, tileSize);
         if (mousePos != null) {
             g.setColor(new Color(250, 221, 129));
             fillRect(g, mousePos.getX()*tileSize, mousePos.getY()*tileSize, tileSize, tileSize);
