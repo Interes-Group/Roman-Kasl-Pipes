@@ -29,6 +29,28 @@ public class BoardData {
         }
     }
 
+    public boolean isRouteAlligned() {
+        for (PipeData pipe : route) {
+            if (!pipe.isCorrect()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<Position> getCorrectPipes() {
+        ArrayList<Position> correctPipes = new ArrayList<>();
+        for (PipeData pipe : route) {
+            if (pipe.isCorrect()) {
+                correctPipes.add(pipe.getPosition());
+            }
+            else {
+                break;
+            }
+        }
+        return correctPipes;
+    }
+
     private void setPipeSides() {
         route.get(0).addEnd(Orientation.WEST);
         for (int i = 1; i < route.size(); i++) {

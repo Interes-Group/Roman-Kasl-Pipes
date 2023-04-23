@@ -9,14 +9,14 @@ import sk.stuba.fei.uim.oop.logic.Position;
 public class BoardListener extends MouseAdapter {
     
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if (!(e.getComponent() instanceof BoardCanvas)) {
             return;
         }
         BoardCanvas boardCanvas = (BoardCanvas) e.getComponent();
         Position pos = new Position((int) (e.getX()/boardCanvas.getTileSize()), (int) (e.getY()/boardCanvas.getTileSize()));
         boardCanvas.getBoardData().rotatePipe(pos);
-        boardCanvas.repaint();
+        boardCanvas.hideCorrect();
     }
 
     @Override

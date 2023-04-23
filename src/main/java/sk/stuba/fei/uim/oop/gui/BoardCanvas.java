@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.gui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,8 @@ public class BoardCanvas extends Canvas {
     @Setter
     private Position mousePos;
     private double tileSize;
+    private boolean showCorrect = false;
+    private ArrayList<Position> correctPipes;
 
     public BoardCanvas() {
         newBoard(DEFAULT_BOARD_SIZE);
@@ -32,15 +35,38 @@ public class BoardCanvas extends Canvas {
         repaint();
     }
 
+    public void newBoard() {
+        this.boardData = new BoardData(boardData.getSize());
+        repaint();
+    }
+
+    public void showCorrect() {
+        this.correctPipes = this.boardData.getCorrectPipes();
+        repaint();
+    }
+
+    public void hideCorrect() {
+        this.correctPipes = null;
+        repaint();
+    }
+
     @Override
     public void paint(Graphics g) {
         this.tileSize = ((double) this.getWidth()) / boardData.getSize();
         if (mousePos != null) {
-            g.setColor(new Color(255, 0, 0));
+            g.setColor(new Color(250, 221, 129));
             fillRect(g, mousePos.getX()*tileSize, mousePos.getY()*tileSize, tileSize, tileSize);
         }
-        g.setColor(new Color(0, 0, 255));
+        g.setColor(new Color(88, 125, 255));
         for (PipeData pipe : boardData.getRoute()) {
+            if (this.correctPipes != null) {
+                if (this.correctPipes.contains(pipe.getPosition())) {
+                    g.setColor(new Color(51, 193, 91));
+                    drawPipe(g, pipe, tileSize);
+                    g.setColor(new Color(88, 125, 255));
+                    continue;
+                }
+            }
             drawPipe(g, pipe, tileSize);
         }
     }
